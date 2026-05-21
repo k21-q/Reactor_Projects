@@ -11,13 +11,12 @@
 #include<stddef.h>
 #include<iostream>
 #include<functional>
+#include<stdint.h>
 
 
-//11111
-//12
 
 //事件回调函数
-namespace neet{
+namespace net{
     class Timestamp;
     using ReadCallBack=std::function<void(Timestamp)>;  //读事件回调函数
     using EventCallBack=std::function<void()>;                //其他事件回调函数
@@ -30,6 +29,8 @@ namespace neet{
     class Channel{
          public:
          int fd();
+         ChannelState state();
+         void setState(ChannelState state);
          uint32_t events();         //获取要监控的事件
          void setRevents(uint32_t e); //设置就绪事件
          void handleEvent();  //总的事件处理函数,任何就绪的事件就会调用这个函数  Poller类文件描述符监控后  会根据实际就绪的事件调用不同的类进行处理
